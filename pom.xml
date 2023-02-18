@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.mifort</groupId>
     <artifactId>reactive-redis-repository</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.0-SNAPSHOT</version>
     <name>React Redis repository for Spring based application</name>
     <description>Works with redis in react way like ordinary Spring repository</description>
     <packaging>jar</packaging>

@@ -56,6 +56,13 @@ public class ReactiveRedisRepository <T> {
     private final ObjectMapper objectMapper;
     private final RedisHash hashConfig;
     
+    /**
+     * Create reactive Redis repository.
+     * 
+     * @param reactiveRedisTemplate Spring ReactiveRedisTemplate to work with Redis 
+     * @param objectMapper object mapper for entity serialization
+     * @param entityClass entity type
+     */
     public ReactiveRedisRepository (ReactiveRedisTemplate<String, T> reactiveRedisTemplate,
             ObjectMapper objectMapper,
             Class<T> entityClass) {
@@ -65,8 +72,15 @@ public class ReactiveRedisRepository <T> {
         this.hashConfig = getRedisHashData();
     }
     
+    /**
+     * Find entity by id. String id is supported in the current version.
+     * 
+     * @param id Entity id
+     * @return Mono with found entity or Mono.empty() if no such entity 
+     */
     public Mono<T> findById(String id) {
         if (hashConfig == null) {
+            log.warn("findById() call for not supported entity. Check required needed annotations");
             return Mono.empty();
         }
         
@@ -78,8 +92,14 @@ public class ReactiveRedisRepository <T> {
     
     }
     
+    /**
+     * Save entity to Redis.
+     * @param entity entity to save
+     * @return Mono with saved entity. 
+     */
     public Mono<T> save(T entity) {
         if (hashConfig == null) {
+            log.warn("save() call for not supported entity. Check all required annotations");
             return Mono.empty();
         }
         
@@ -126,8 +146,14 @@ public class ReactiveRedisRepository <T> {
             .flatMap(savedEntity -> saveIndexedFields(savedEntity, hashConfig.value(), filledId));
     }
     
+    /**
+     * Delete entity from Redis by id
+     * @param id entity id
+     * @return void mono
+     */
     public Mono<Void> deleteById(String id) {
         if (hashConfig == null) {
+            log.warn("deleteById() call for not supported entity. Check all required annotations");
             return Mono.empty();
         }
         
