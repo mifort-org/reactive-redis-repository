@@ -10,9 +10,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class ExampleRepositoryImpl 
     extends ReactiveRedisRepository<ExampleEntity> implements ExampleRepository {
 
-    public ExampleRepositoryImpl(ReactiveRedisTemplate<String, ExampleEntity> reactiveRedisTemplate,
-            ObjectMapper objectMapper, Class<ExampleEntity> entityClass) {
-        super(reactiveRedisTemplate, objectMapper, entityClass);
+    public ExampleRepositoryImpl(ReactiveRedisTemplate<String, ExampleEntity> reactiveExampleEntityRedisTemplate,
+            ObjectMapper objectMapper) {
+        super(reactiveExampleEntityRedisTemplate, objectMapper, ExampleEntity.class);
     }
 
 }
